@@ -222,11 +222,14 @@ td.when { color: var(--navy-soft); font-size: 13px; white-space: nowrap; }
 .card.one .invite .body { font-size: 16px; line-height: 1.5; margin: 0 auto; max-width: 360px; }
 .card.one .invite .parents { font-size: 21px; margin: 6px 0 0; }
 
-.when-where { margin: 14px auto 0; padding: 10px 0; max-width: 400px; font-size: 15px; line-height: 1.6;
-  border-top: 1px solid var(--gold-pale); border-bottom: 1px solid var(--gold-pale); }
+.when-where { margin: 16px auto 0; max-width: 420px; padding: 14px 12px;
+  background: #f8f0de; border: 1px solid var(--gold-light); border-radius: 12px; }
 .when-where p { margin: 0; }
-.when-where .sep { color: var(--gold); margin: 0 7px; }
-.when-where a { color: var(--navy); text-decoration-color: var(--gold-light); text-underline-offset: 3px; }
+.ww + .ww { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(180, 138, 74, .28); }
+.ww-main { font-family: "Frank Ruhl Libre", serif; font-weight: 900; font-size: 20px; line-height: 1.3; color: var(--navy); }
+.ww-sub { font-size: 15px; font-weight: 600; color: var(--gold); margin-top: 2px !important; }
+.when-where .sep { color: var(--gold); margin: 0 8px; font-weight: 400; }
+.when-where a { color: var(--navy); text-decoration-color: var(--gold); text-underline-offset: 4px; }
 
 /* "אישור הגעה" as an ornamental divider */
 .card.one h2 { display: flex; align-items: center; gap: 14px; font-size: 24px; color: var(--navy);
@@ -261,3 +264,16 @@ td.when { color: var(--navy-soft); font-size: 13px; white-space: nowrap; }
 
 @media (max-width: 640px) { .card.one { padding: 26px 18px 18px; } }
 @media (min-width: 700px) { .wrap.one { padding-top: 40px; } }
+/* recover height after enlarging the date/venue block */
+.card.one { padding-top: 24px; }
+.card.one .invite h1 { font-size: clamp(46px, 13vw, 60px); }
+.card.one .invite .baby { margin: 2px 0 6px; }
+.card.one .invite .parents { margin-top: 4px; }
+.when-where { margin-top: 12px; padding: 11px 12px; }
+.ww + .ww { margin-top: 8px; padding-top: 8px; }
+.card.one h2 { margin: 14px 0 10px; }
+.card.one .field { margin-bottom: 10px; }
+.card.one input[type=text], .card.one input[type=tel] { padding: 10px 13px; }
+.card.one .choice label { padding: 10px 6px; }
+.card.one .stepper button { height: 42px; }
+.card.one .btn { padding: 13px 16px; }

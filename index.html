@@ -26,8 +26,14 @@
         <p class="body">נתכבד להזמינכם לסעודת מצווה של פדיון בננו בכורנו</p>
         <p class="parents" data-parents></p>
         <div class="when-where">
-          <p><strong data-day></strong><span class="sep">·</span><span data-date></span><span class="sep">·</span><strong data-time></strong></p>
-          <p data-where></p>
+          <div class="ww">
+            <p class="ww-main"><span data-day></span><span class="sep">·</span><span data-date></span><span class="sep">·</span><span data-time></span></p>
+            <p class="ww-sub" data-hebdate></p>
+          </div>
+          <div class="ww">
+            <p class="ww-main" data-venue></p>
+            <p class="ww-sub" data-where></p>
+          </div>
         </div>
       </header>
 
@@ -101,20 +107,19 @@
     const DEMO = 'om-rsvp-demo';
 
     // ---- מילוי פרטי האירוע ----
-    $('[data-baby]').textContent = E.babyName ? 'של ' + E.babyName + ' נ״י' : '';
+    $('[data-baby]').textContent = E.babyName ? 'של ' + E.babyName : '';
     $('[data-parents]').textContent = E.parents || '';
     $('[data-day]').textContent = E.day || '';
-    $('[data-date]').textContent = [E.hebrewDate, E.date].filter(Boolean).join(' · ');
+    $('[data-date]').textContent = E.date || '';
     $('[data-time]').textContent = E.time || '';
+    $('[data-hebdate]').textContent = E.hebrewDate || '';
+    $('[data-venue]').textContent = E.venue || '';
     const where = $('[data-where]');
-    where.append(E.venue || '');
     if (E.address) {
-      const sep = document.createElement('span');
-      sep.className = 'sep'; sep.textContent = '·';
       const a = document.createElement(E.mapsUrl ? 'a' : 'span');
       if (E.mapsUrl) { a.href = E.mapsUrl; a.target = '_blank'; a.rel = 'noopener'; }
-      a.textContent = E.address;
-      where.append(sep, a);
+      a.textContent = E.address + (E.mapsUrl ? ' · ניווט' : '');
+      where.append(a);
     }
     if (E.parking) {
       const pk = $('[data-parking]');
