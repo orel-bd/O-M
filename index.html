@@ -49,7 +49,7 @@
         <p class="sub" data-deadline>נשמח לדעת אם תגיעו</p>
 
         <div class="demo hidden" id="demo-note">
-          מצב הדגמה: עדיין לא חובר גיליון Google. האישורים נשמרים רק בדפדפן הזה.
+          מצב הדגמה: האתר לא רץ על Vercel, לכן האישורים נשמרים רק בדפדפן הזה.
         </div>
 
         <form id="form" novalidate>
@@ -126,7 +126,7 @@
     } else where.append(E.address || '');
     if (E.rsvpBy) $('[data-deadline]').textContent = 'נשמח לאישורכם עד ' + E.rsvpBy;
     if (E.babyName) document.title = 'פדיון הבן של ' + E.babyName + ' — אישור הגעה';
-    if (!E.scriptUrl) $('#demo-note').classList.remove('hidden');
+    if (!E.apiUrl) $('#demo-note').classList.remove('hidden');
 
     // ---- כמות ----
     let count = 2;
@@ -163,10 +163,10 @@
 
       btn.disabled = true; btn.textContent = 'שולח...'; msg.textContent = '';
       try {
-        if (E.scriptUrl) {
-          const res = await fetch(E.scriptUrl, {
+        if (E.apiUrl) {
+          const res = await fetch(E.apiUrl, {
             method: 'POST',
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // בלי preflight
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
           });
           const j = await res.json();

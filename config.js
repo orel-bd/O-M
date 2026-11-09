@@ -12,7 +12,7 @@ window.EVENT = {
   mapsUrl: "",                      // קישור ל-Waze או Google Maps (לא חובה)
   rsvpBy: "12.11.2026",             // עד מתי לאשר הגעה (לא חובה)
 
-  // כתובת ה-Web App של Google Apps Script (ראו README).
-  // כל עוד השדה ריק — האתר עובד במצב הדגמה ושומר רק בדפדפן הנוכחי.
-  scriptUrl: ""
+  // לאן נשלחים האישורים. ב-Vercel זה "/api/rsvp".
+  // אם ריק (למשל בפתיחה מקומית או ב-GitHub Pages) — מצב הדגמה ששומר רק בדפדפן.
+  apiUrl: location.protocol.startsWith("http") && !location.hostname.endsWith("github.io") ? "/api/rsvp" : ""
 };

@@ -17,7 +17,7 @@
     <!-- כניסה -->
     <section class="card login hidden" id="login">
       <h2>רשימת מאשרים</h2>
-      <p class="sub">הכניסו את הסיסמה שהוגדרה ב-Apps Script</p>
+      <p class="sub">הכניסו את סיסמת המנהל</p>
       <form id="login-form">
         <div class="field">
           <label for="key">סיסמה</label>
@@ -90,14 +90,15 @@
     }
 
     async function load(key) {
-      if (!E.scriptUrl) {
+      if (!E.apiUrl) {
         $('#demo-note').classList.remove('hidden');
         try { rows = JSON.parse(localStorage.getItem('om-rsvp-demo') || '[]'); } catch (e) { rows = []; }
         show('board'); render(); return true;
       }
-      const res = await fetch(E.scriptUrl + '?key=' + encodeURIComponent(key) + '&t=' + Date.now());
+      const res = await fetch(E.apiUrl, { headers: { 'x-admin-key': key }, cache: 'no-store' });
+      if (res.status === 401) return false;
       const j = await res.json();
-      if (!j.ok) return false;
+      if (!j.ok) throw new Error(j.error);
       rows = j.rows; show('board'); render(); return true;
     }
 
@@ -154,7 +155,8 @@
     }
 
     function downloadCsv() {
-      const esc = (v) => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+      // מרכאות + חסימת נוסחאות כשפותחים באקסל
+      const esc = (v) => { let s = String(v ?? ''); if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; return '"' + s.replace(/"/g, '""') + '"'; };
       const lines = [['שם מלא', 'טלפון', 'מגיעים', 'כמות', 'הערה', 'נרשם'].map(esc).join(',')];
       rows.forEach((r) => lines.push([r.name, fmtPhone(r.phone), r.attending === 'yes' ? 'כן' : 'לא',
         r.attending === 'yes' ? r.count : 0, r.note, fmtTime(r.time)].map(esc).join(',')));
@@ -173,7 +175,7 @@
       try {
         if (await load(k)) setKey(k);
         else $('#login-msg').textContent = 'סיסמה שגויה';
-      } catch (err) { $('#login-msg').textContent = 'לא ניתן להתחבר. בדקו את כתובת ה-scriptUrl.'; }
+      } catch (err) { $('#login-msg').textContent = 'לא ניתן להתחבר כרגע. נסו שוב.'; }
     });
     $('#refresh').addEventListener('click', () => load(getKey()).catch(() => {}));
     $('#csv').addEventListener('click', downloadCsv);
@@ -187,7 +189,7 @@
 
     // התחלה
     const k = getKey();
-    if (!E.scriptUrl) load('');
+    if (!E.apiUrl) load('');
     else if (k) load(k).then((ok) => ok || show('login')).catch(() => show('login'));
     else show('login');
   })();
