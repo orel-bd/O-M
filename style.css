@@ -283,3 +283,7 @@ td.when { color: var(--navy-soft); font-size: 13px; white-space: nowrap; }
   margin: 6px 0 0; padding: 0; border: 0; }
 .when-where .parking a { color: var(--navy-soft); font-weight: 400; text-decoration-color: var(--gold-light); }
 .opt { font-weight: 400; color: var(--navy-soft); }
+/* order: opening → invitation line → parents → title → baby name */
+.card.one .invite .body { margin-top: 6px; }
+.card.one .invite .parents { margin: 4px 0 6px; }
+.card.one .invite .baby { font-size: clamp(26px, 7.5vw, 32px); margin: 2px 0 0; line-height: 1.25; }
