@@ -33,6 +33,7 @@
           <div class="ww">
             <p class="ww-main" data-venue></p>
             <p class="ww-sub" data-where></p>
+            <p class="parking" data-parking hidden></p>
           </div>
         </div>
       </header>
@@ -49,11 +50,11 @@
           <div class="row2">
             <div class="field">
               <label for="name">שם מלא</label>
-              <input id="name" name="name" type="text" autocomplete="name" required maxlength="80" placeholder="משפחת לוי">
+              <input id="name" name="name" type="text" autocomplete="name" required maxlength="80">
             </div>
             <div class="field">
               <label for="phone">טלפון</label>
-              <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="050-0000000">
+              <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required>
             </div>
           </div>
 
@@ -76,7 +77,8 @@
           </div>
 
           <div class="field">
-            <input id="note" name="note" type="text" maxlength="500" placeholder="ברכה או הערה (לא חובה)" aria-label="ברכה או הערה (לא חובה)">
+            <label for="note">ברכה או הערה <small class="opt">(לא חובה)</small></label>
+            <input id="note" name="note" type="text" maxlength="500">
           </div>
 
           <button class="btn" type="submit" id="submit">שליחת אישור</button>
@@ -95,7 +97,6 @@
         ״וּפְדוּיָו מִבֶּן חֹדֶשׁ תִּפְדֶּה... חֲמֵשֶׁת שְׁקָלִים״
         <small>במדבר יח, טז</small>
       </p>
-      <p class="parking" data-parking hidden></p>
     </section>
   </main>
 
@@ -123,7 +124,7 @@
     }
     if (E.parking) {
       const pk = $('[data-parking]');
-      pk.append('🅿️ ', E.parking, document.createElement('br'), E.parkingPaid || '');
+      pk.append(E.parking, document.createElement('br'), E.parkingPaid || '');
       if (E.parkingAddress) {
         const a = document.createElement(E.parkingUrl ? 'a' : 'span');
         if (E.parkingUrl) { a.href = E.parkingUrl; a.target = '_blank'; a.rel = 'noopener'; }

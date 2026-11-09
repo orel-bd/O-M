@@ -278,3 +278,8 @@ td.when { color: var(--navy-soft); font-size: 13px; white-space: nowrap; }
 .card.one .stepper button { height: 42px; }
 .card.one .btn { padding: 13px 16px; }
 .card.one input[type=text], .card.one input[type=tel] { padding: 7px 7px; }
+/* parking: plain small text under the address, inside the venue block */
+.when-where .parking { font-size: 13.5px; font-weight: 400; line-height: 1.5; color: var(--navy-soft);
+  margin: 6px 0 0; padding: 0; border: 0; }
+.when-where .parking a { color: var(--navy-soft); font-weight: 400; text-decoration-color: var(--gold-light); }
+.opt { font-weight: 400; color: var(--navy-soft); }
