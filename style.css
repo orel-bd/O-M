@@ -287,3 +287,7 @@ td.when { color: var(--navy-soft); font-size: 13px; white-space: nowrap; }
 .card.one .invite .body { margin-top: 6px; }
 .card.one .invite .parents { margin: 4px 0 6px; }
 .card.one .invite .baby { font-size: clamp(26px, 7.5vw, 32px); margin: 2px 0 0; line-height: 1.25; }
+/* navigation links with Waze icon */
+a.nav { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+a.nav .waze { width: 18px; height: 18px; flex: none; color: #1fb6e8; }
+.when-where .parking a.nav .waze { width: 16px; height: 16px; }
