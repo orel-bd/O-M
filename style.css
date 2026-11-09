@@ -291,3 +291,4 @@ td.when { color: var(--navy-soft); font-size: 13px; white-space: nowrap; }
 a.nav { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
 a.nav .waze { width: 18px; height: 18px; flex: none; color: #1fb6e8; }
 .when-where .parking a.nav .waze { width: 16px; height: 16px; }
+.card.one .invite .parents-sign { margin: 14px 0 0; }
