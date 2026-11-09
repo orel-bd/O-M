@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>פדיון הבן — אישור הגעה</title>
+  <meta name="description" content="הזמנה לסעודת מצווה של פדיון הבן — אישור הגעה">
+  <meta property="og:title" content="הוזמנתם לפדיון הבן">
+  <meta property="og:description" content="נשמח לראותכם — אשרו הגעה כאן">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Frank+Ruhl+Libre:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23d6d9de' stroke='%23b48a4a' stroke-width='3'/%3E%3C/svg%3E">
+  <script src="config.js"></script>
+</head>
+<body>
+  <main class="wrap">
+
+    <!-- ההזמנה -->
+    <section class="card invite" aria-labelledby="title">
+      <!-- חמשת הסלעים -->
+      <svg class="coins" viewBox="0 0 220 70" aria-hidden="true">
+        <defs>
+          <radialGradient id="silver" cx="35%" cy="30%" r="75%">
+            <stop offset="0" stop-color="#ffffff"/>
+            <stop offset=".55" stop-color="#d4d8de"/>
+            <stop offset="1" stop-color="#9aa1ab"/>
+          </radialGradient>
+        </defs>
+        <g stroke="#b48a4a" stroke-width="2">
+          <circle cx="30"  cy="42" r="22" fill="url(#silver)"/>
+          <circle cx="70"  cy="34" r="22" fill="url(#silver)"/>
+          <circle cx="110" cy="30" r="22" fill="url(#silver)"/>
+          <circle cx="150" cy="34" r="22" fill="url(#silver)"/>
+          <circle cx="190" cy="42" r="22" fill="url(#silver)"/>
+        </g>
+        <g fill="none" stroke="#b48a4a" stroke-width="1" opacity=".55">
+          <circle cx="30"  cy="42" r="16"/>
+          <circle cx="70"  cy="34" r="16"/>
+          <circle cx="110" cy="30" r="16"/>
+          <circle cx="150" cy="34" r="16"/>
+          <circle cx="190" cy="42" r="16"/>
+        </g>
+        <g font-family="Frank Ruhl Libre, serif" font-size="15" font-weight="700" fill="#1d2c4c" text-anchor="middle">
+          <text x="190" y="47">ה</text>
+          <text x="150" y="39">ס</text>
+          <text x="110" y="35">ל</text>
+          <text x="70"  y="39">ע</text>
+          <text x="30"  y="47">ים</text>
+        </g>
+      </svg>
+
+      <p class="opening">בשבח והודיה לה׳ יתברך</p>
+      <h1 id="title">פדיון הבן</h1>
+      <p class="baby" data-baby></p>
+      <p class="body">
+        נתכבד להזמינכם להשתתף בשמחתנו
+        בסעודת מצווה של פדיון בננו בכורנו
+      </p>
+      <p class="parents" data-parents></p>
+
+      <div class="divider" aria-hidden="true">✦</div>
+
+      <dl class="details">
+        <div><dt>מתי</dt><dd data-when></dd></div>
+        <div><dt>בשעה</dt><dd data-time></dd></div>
+        <div><dt>היכן</dt><dd data-where></dd></div>
+      </dl>
+
+      <p class="verse">
+        ״וּפְדוּיָו מִבֶּן חֹדֶשׁ תִּפְדֶּה... חֲמֵשֶׁת שְׁקָלִים״
+        <small>במדבר יח, טז</small>
+      </p>
+    </section>
+
+    <!-- הטופס -->
+    <section class="card" id="rsvp" aria-labelledby="rsvp-title">
+      <div id="form-view">
+        <h2 id="rsvp-title">אישור הגעה</h2>
+        <p class="sub" data-deadline>נשמח לדעת אם תגיעו</p>
+
+        <div class="demo hidden" id="demo-note">
+          מצב הדגמה: עדיין לא חובר גיליון Google. האישורים נשמרים רק בדפדפן הזה.
+        </div>
+
+        <form id="form" novalidate>
+          <div class="field">
+            <label for="name">שם מלא</label>
+            <input id="name" name="name" type="text" autocomplete="name" required maxlength="80" placeholder="לדוגמה: משפחת לוי">
+          </div>
+
+          <div class="field">
+            <label for="phone">טלפון</label>
+            <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="050-0000000">
+          </div>
+
+          <div class="field">
+            <span class="label" id="att-label">האם תגיעו?</span>
+            <div class="choice" role="radiogroup" aria-labelledby="att-label">
+              <input type="radio" id="att-yes" name="attending" value="yes" checked>
+              <label for="att-yes">נגיע בשמחה</label>
+              <input type="radio" id="att-no" name="attending" value="no">
+              <label for="att-no">לא נוכל להגיע</label>
+            </div>
+          </div>
+
+          <div class="field" id="count-field">
+            <span class="label" id="count-label">כמה תהיו? (כולל ילדים)</span>
+            <div class="stepper" aria-labelledby="count-label">
+              <button type="button" data-step="1" aria-label="הוספה">+</button>
+              <output id="count" aria-live="polite">2</output>
+              <button type="button" data-step="-1" aria-label="הפחתה">−</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="note">ברכה או הערה <span style="font-weight:400;color:var(--navy-soft)">(לא חובה)</span></label>
+            <textarea id="note" name="note" maxlength="500" placeholder="מזל טוב!"></textarea>
+          </div>
+
+          <button class="btn" type="submit" id="submit">שליחת אישור</button>
+          <p class="msg" id="msg" role="status"></p>
+        </form>
+      </div>
+
+      <div id="thanks-view" class="thanks hidden" role="status">
+        <div class="seal" aria-hidden="true">✓</div>
+        <h2 id="thanks-title">תודה רבה!</h2>
+        <p id="thanks-text"></p>
+        <button class="linkish" type="button" id="edit">לעדכן את האישור</button>
+      </div>
+    </section>
+
+    <footer>בשמחות אצלכם · O&amp;M</footer>
+  </main>
+
+  <script>
+  (function () {
+    const E = window.EVENT || {};
+    const $ = (s) => document.querySelector(s);
+    const STORE = 'om-rsvp-mine';
+    const DEMO = 'om-rsvp-demo';
+
+    // ---- מילוי פרטי האירוע ----
+    $('[data-baby]').textContent = E.babyName ? 'של ' + E.babyName + ' נ״י' : '';
+    $('[data-parents]').textContent = E.parents || '';
+    $('[data-when]').innerHTML = '';
+    $('[data-when]').append(E.hebrewDate || '', document.createElement('br'), E.date || '');
+    $('[data-time]').textContent = E.time || '';
+    const where = $('[data-where]');
+    where.append(E.venue || '', document.createElement('br'));
+    if (E.mapsUrl) {
+      const a = document.createElement('a');
+      a.href = E.mapsUrl; a.target = '_blank'; a.rel = 'noopener';
+      a.textContent = E.address || 'ניווט';
+      where.append(a);
+    } else where.append(E.address || '');
+    if (E.rsvpBy) $('[data-deadline]').textContent = 'נשמח לאישורכם עד ' + E.rsvpBy;
+    if (E.babyName) document.title = 'פדיון הבן של ' + E.babyName + ' — אישור הגעה';
+    if (!E.scriptUrl) $('#demo-note').classList.remove('hidden');
+
+    // ---- כמות ----
+    let count = 2;
+    const out = $('#count');
+    document.querySelectorAll('[data-step]').forEach((b) =>
+      b.addEventListener('click', () => {
+        count = Math.max(1, Math.min(30, count + Number(b.dataset.step)));
+        out.textContent = count;
+      })
+    );
+    const syncAttending = () => {
+      const yes = $('#att-yes').checked;
+      $('#count-field').classList.toggle('hidden', !yes);
+    };
+    document.querySelectorAll('[name=attending]').forEach((r) => r.addEventListener('change', syncAttending));
+
+    // ---- שליחה ----
+    const form = $('#form'), msg = $('#msg'), btn = $('#submit');
+    const err = (t) => { msg.textContent = t; msg.className = 'msg err'; };
+
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const data = {
+        name: $('#name').value.trim(),
+        phone: $('#phone').value.replace(/[^\d]/g, ''),
+        attending: $('#att-yes').checked ? 'yes' : 'no',
+        count: $('#att-yes').checked ? count : 0,
+        note: $('#note').value.trim()
+      };
+      if (!data.name) { err('נא למלא שם מלא'); $('#name').focus(); return; }
+      if (!/^0\d{8,9}$/.test(data.phone) && !/^972\d{8,9}$/.test(data.phone)) {
+        err('נא למלא מספר טלפון תקין'); $('#phone').focus(); return;
+      }
+
+      btn.disabled = true; btn.textContent = 'שולח...'; msg.textContent = '';
+      try {
+        if (E.scriptUrl) {
+          const res = await fetch(E.scriptUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // בלי preflight
+            body: JSON.stringify(data)
+          });
+          const j = await res.json();
+          if (!j.ok) throw new Error(j.error || 'failed');
+        } else {
+          const list = JSON.parse(localStorage.getItem(DEMO) || '[]').filter((r) => r.phone !== data.phone);
+          list.push({ ...data, time: new Date().toISOString() });
+          localStorage.setItem(DEMO, JSON.stringify(list));
+        }
+        try { localStorage.setItem(STORE, JSON.stringify(data)); } catch (e) {}
+        showThanks(data);
+      } catch (e) {
+        err('השליחה לא הצליחה. בדקו את החיבור ונסו שוב.');
+      } finally {
+        btn.disabled = false; btn.textContent = 'שליחת אישור';
+      }
+    });
+
+    function showThanks(d) {
+      $('#form-view').classList.add('hidden');
+      $('#thanks-view').classList.remove('hidden');
+      if (d.attending === 'yes') {
+        $('#thanks-title').textContent = 'תודה רבה, ' + d.name.split(' ')[0] + '!';
+        $('#thanks-text').textContent = 'רשמנו ' + (d.count === 1 ? 'משתתף אחד' : d.count + ' משתתפים') + '. מחכים לראותכם!';
+      } else {
+        $('#thanks-title').textContent = 'תודה שעדכנתם';
+        $('#thanks-text').textContent = 'חבל שלא תוכלו להגיע — נשמח בשמחות.';
+      }
+    }
+
+    $('#edit').addEventListener('click', () => {
+      $('#thanks-view').classList.add('hidden');
+      $('#form-view').classList.remove('hidden');
+      $('#name').focus();
+    });
+
+    // ---- אם כבר אישרו מהמכשיר הזה ----
+    try {
+      const mine = JSON.parse(localStorage.getItem(STORE) || 'null');
+      if (mine) {
+        $('#name').value = mine.name; $('#phone').value = mine.phone; $('#note').value = mine.note || '';
+        $(mine.attending === 'no' ? '#att-no' : '#att-yes').checked = true;
+        count = mine.count || 2; out.textContent = count;
+        syncAttending();
+        showThanks(mine);
+      }
+    } catch (e) {}
+  })();
+  </script>
+</body>
+</html>

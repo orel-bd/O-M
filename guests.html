@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>רשימת מאשרים</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Frank+Ruhl+Libre:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js"></script>
+</head>
+<body>
+  <main class="wrap wide">
+
+    <!-- כניסה -->
+    <section class="card login hidden" id="login">
+      <h2>רשימת מאשרים</h2>
+      <p class="sub">הכניסו את הסיסמה שהוגדרה ב-Apps Script</p>
+      <form id="login-form">
+        <div class="field">
+          <label for="key">סיסמה</label>
+          <input id="key" type="password" autocomplete="current-password" required>
+        </div>
+        <button class="btn" type="submit">כניסה</button>
+        <p class="msg err" id="login-msg" role="alert"></p>
+      </form>
+    </section>
+
+    <!-- הרשימה -->
+    <section id="board" class="hidden">
+      <div class="top">
+        <h1>רשימת מאשרים</h1>
+        <div class="actions">
+          <button class="btn ghost" id="refresh" type="button">רענון</button>
+          <button class="btn ghost" id="csv" type="button">הורדה לאקסל</button>
+          <button class="btn ghost" id="logout" type="button">יציאה</button>
+        </div>
+      </div>
+
+      <div class="demo hidden" id="demo-note">מצב הדגמה: מוצגים רק אישורים שנשלחו מהדפדפן הזה.</div>
+
+      <div class="stats">
+        <div class="stat main"><div class="n" id="s-people">0</div><div class="t">אנשים מגיעים</div></div>
+        <div class="stat"><div class="n" id="s-yes">0</div><div class="t">אישורים</div></div>
+        <div class="stat"><div class="n" id="s-no">0</div><div class="t">לא מגיעים</div></div>
+        <div class="stat"><div class="n" id="s-all">0</div><div class="t">סה״כ נרשמו</div></div>
+      </div>
+
+      <div class="toolbar">
+        <input type="search" id="q" placeholder="חיפוש לפי שם או טלפון" aria-label="חיפוש">
+        <div class="filters" role="group" aria-label="סינון">
+          <button type="button" data-f="all" class="on">הכול</button>
+          <button type="button" data-f="yes">מגיעים</button>
+          <button type="button" data-f="no">לא מגיעים</button>
+        </div>
+      </div>
+
+      <div class="table-box">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th><th>שם מלא</th><th>טלפון</th><th>סטטוס</th><th>כמות</th>
+              <th class="hide-sm">ברכה / הערה</th><th class="hide-sm">נרשם</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <div class="empty hidden" id="empty">עדיין אין אישורים</div>
+      </div>
+    </section>
+
+    <footer><a href="./">לדף ההזמנה</a></footer>
+  </main>
+
+  <script>
+  (function () {
+    const E = window.EVENT || {};
+    const $ = (s) => document.querySelector(s);
+    const KEY = 'om-admin-key';
+    let rows = [], filter = 'all';
+
+    const getKey = () => { try { return localStorage.getItem(KEY) || ''; } catch (e) { return ''; } };
+    const setKey = (k) => { try { k ? localStorage.setItem(KEY, k) : localStorage.removeItem(KEY); } catch (e) {} };
+
+    function show(which) {
+      $('#login').classList.toggle('hidden', which !== 'login');
+      $('#board').classList.toggle('hidden', which !== 'board');
+    }
+
+    async function load(key) {
+      if (!E.scriptUrl) {
+        $('#demo-note').classList.remove('hidden');
+        try { rows = JSON.parse(localStorage.getItem('om-rsvp-demo') || '[]'); } catch (e) { rows = []; }
+        show('board'); render(); return true;
+      }
+      const res = await fetch(E.scriptUrl + '?key=' + encodeURIComponent(key) + '&t=' + Date.now());
+      const j = await res.json();
+      if (!j.ok) return false;
+      rows = j.rows; show('board'); render(); return true;
+    }
+
+    function fmtPhone(p) {
+      p = String(p).replace(/[^\d]/g, '');
+      if (p.startsWith('972')) p = '0' + p.slice(3);
+      return p.length === 10 ? p.slice(0, 3) + '-' + p.slice(3) : p;
+    }
+    function fmtTime(t) {
+      const d = new Date(t);
+      return isNaN(d) ? '' : d.toLocaleDateString('he-IL', { day: 'numeric', month: 'numeric' }) + ' ' +
+        d.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+    }
+    function td(text, cls) {
+      const c = document.createElement('td');
+      if (cls) c.className = cls;
+      c.textContent = text;
+      return c;
+    }
+
+    function render() {
+      const yes = rows.filter((r) => r.attending === 'yes');
+      $('#s-people').textContent = yes.reduce((s, r) => s + (Number(r.count) || 0), 0);
+      $('#s-yes').textContent = yes.length;
+      $('#s-no').textContent = rows.length - yes.length;
+      $('#s-all').textContent = rows.length;
+
+      const q = $('#q').value.trim().toLowerCase();
+      const qd = q.replace(/[^\d]/g, '');
+      const list = rows
+        .filter((r) => filter === 'all' || r.attending === filter)
+        .filter((r) => !q || r.name.toLowerCase().includes(q) || (qd && String(r.phone).includes(qd)))
+        .sort((a, b) => new Date(b.time) - new Date(a.time));
+
+      const body = $('#rows');
+      body.replaceChildren();
+      list.forEach((r, i) => {
+        const tr = document.createElement('tr');
+        tr.append(td(i + 1, 'num'), td(r.name));
+        const ph = td('', 'phone');
+        const a = document.createElement('a');
+        a.href = 'tel:' + r.phone; a.textContent = fmtPhone(r.phone);
+        ph.append(a); tr.append(ph);
+        const st = td('');
+        const pill = document.createElement('span');
+        pill.className = 'pill ' + r.attending;
+        pill.textContent = r.attending === 'yes' ? 'מגיע/ה' : 'לא מגיע/ה';
+        st.append(pill); tr.append(st);
+        tr.append(td(r.attending === 'yes' ? r.count : '—', 'num'), td(r.note || '', 'note hide-sm'), td(fmtTime(r.time), 'when hide-sm'));
+        body.append(tr);
+      });
+      $('#empty').classList.toggle('hidden', list.length > 0);
+      $('#empty').textContent = rows.length ? 'לא נמצאו תוצאות' : 'עדיין אין אישורים';
+    }
+
+    function downloadCsv() {
+      const esc = (v) => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+      const lines = [['שם מלא', 'טלפון', 'מגיעים', 'כמות', 'הערה', 'נרשם'].map(esc).join(',')];
+      rows.forEach((r) => lines.push([r.name, fmtPhone(r.phone), r.attending === 'yes' ? 'כן' : 'לא',
+        r.attending === 'yes' ? r.count : 0, r.note, fmtTime(r.time)].map(esc).join(',')));
+      const blob = new Blob(['﻿' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'אישורי-הגעה.csv';
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    }
+
+    $('#login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const k = $('#key').value;
+      $('#login-msg').textContent = '';
+      try {
+        if (await load(k)) setKey(k);
+        else $('#login-msg').textContent = 'סיסמה שגויה';
+      } catch (err) { $('#login-msg').textContent = 'לא ניתן להתחבר. בדקו את כתובת ה-scriptUrl.'; }
+    });
+    $('#refresh').addEventListener('click', () => load(getKey()).catch(() => {}));
+    $('#csv').addEventListener('click', downloadCsv);
+    $('#logout').addEventListener('click', () => { setKey(''); rows = []; show('login'); });
+    $('#q').addEventListener('input', render);
+    document.querySelectorAll('[data-f]').forEach((b) => b.addEventListener('click', () => {
+      filter = b.dataset.f;
+      document.querySelectorAll('[data-f]').forEach((x) => x.classList.toggle('on', x === b));
+      render();
+    }));
+
+    // התחלה
+    const k = getKey();
+    if (!E.scriptUrl) load('');
+    else if (k) load(k).then((ok) => ok || show('login')).catch(() => show('login'));
+    else show('login');
+  })();
+  </script>
+</body>
+</html>
