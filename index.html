@@ -172,9 +172,11 @@
           const j = await res.json();
           if (!j.ok) throw new Error(j.error || 'failed');
         } else {
-          const list = JSON.parse(localStorage.getItem(DEMO) || '[]').filter((r) => r.phone !== data.phone);
-          list.push({ ...data, time: new Date().toISOString() });
-          localStorage.setItem(DEMO, JSON.stringify(list));
+          try {
+            const list = JSON.parse(localStorage.getItem(DEMO) || '[]').filter((r) => r.phone !== data.phone);
+            list.push({ ...data, time: new Date().toISOString() });
+            localStorage.setItem(DEMO, JSON.stringify(list));
+          } catch (e) {}
         }
         try { localStorage.setItem(STORE, JSON.stringify(data)); } catch (e) {}
         showThanks(data);
