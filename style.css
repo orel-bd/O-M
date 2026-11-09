@@ -210,85 +210,65 @@ td.when { color: var(--navy-soft); font-size: 13px; white-space: nowrap; }
   th.hide-sm, td.hide-sm { display: none; }
 }
 
-/* ---------- one-screen invitation: airy but the form starts right away ---------- */
-.wrap.one { max-width: 540px; padding: 14px 12px 20px; }
-.card.one { padding: 30px 24px 20px; }
+/* ---------- one-screen invitation (8px rhythm) ---------- */
+.wrap.one { max-width: 540px; padding: 16px 12px 24px; }
+.card.one { padding: 32px 24px 24px; }
 .card.one::before { inset: 8px; }
+@media (max-width: 640px) { .card.one { padding: 28px 20px 20px; } }
+@media (min-width: 700px) { .wrap.one { padding-top: 40px; } }
 
+/* header */
 .card.one .invite { text-align: center; }
-.card.one .invite .opening { font-size: 14px; letter-spacing: .02em; margin: 0 0 2px; }
-.card.one .invite h1 { font-size: clamp(48px, 13.5vw, 64px); margin: 0; line-height: 1.05; }
-.card.one .invite .baby { font-size: 22px; margin: 6px 0 10px; }
-.card.one .invite .body { font-size: 16px; line-height: 1.5; margin: 0 auto; max-width: 360px; }
-.card.one .invite .parents { font-size: 21px; margin: 6px 0 0; }
+.card.one .invite .opening { font-size: 14px; line-height: 1.5; color: var(--navy-soft); margin: 0; }
+.card.one .invite .body { font-size: 15px; line-height: 1.5; color: var(--navy-soft); margin: 4px auto 0; max-width: 360px; }
+.card.one .invite h1 { font-family: "Frank Ruhl Libre", serif; font-weight: 900;
+  font-size: clamp(46px, 13vw, 58px); line-height: 1; letter-spacing: 0; margin: 16px 0 0; }
+.card.one .invite .baby { font-family: "Frank Ruhl Libre", serif; font-weight: 700; color: var(--gold);
+  font-size: clamp(28px, 8vw, 34px); line-height: 1.15; margin: 8px 0 0; }
+.card.one .invite .baby .of { font-weight: 400; font-size: .7em; margin-left: .3em; }
 
-.when-where { margin: 16px auto 0; max-width: 420px; padding: 14px 12px;
+/* date & place */
+.when-where { margin: 20px 0 0; padding: 16px;
   background: #f8f0de; border: 1px solid var(--gold-light); border-radius: 12px; }
 .when-where p { margin: 0; }
-.ww + .ww { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(180, 138, 74, .28); }
+.ww + .ww { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(180, 138, 74, .28); }
 .ww-main { font-family: "Frank Ruhl Libre", serif; font-weight: 900; font-size: 20px; line-height: 1.3; color: var(--navy); }
-.ww-sub { font-size: 15px; font-weight: 600; color: var(--gold); margin-top: 2px !important; }
+.ww-sub { font-size: 15px; font-weight: 600; line-height: 1.5; color: var(--gold); margin-top: 4px !important; }
 .when-where .sep { color: var(--gold); margin: 0 8px; font-weight: 400; }
 .when-where a { color: var(--navy); text-decoration-color: var(--gold); text-underline-offset: 4px; }
+.when-where .parking { font-size: 14px; font-weight: 400; line-height: 1.5; color: var(--navy-soft); margin-top: 8px !important; }
+.when-where .parking a { color: var(--navy-soft); font-weight: 400; text-decoration-color: var(--gold-light); }
+a.nav { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+a.nav .waze { width: 18px; height: 18px; flex: none; color: #1fb6e8; }
+.when-where .parking a.nav .waze { width: 16px; height: 16px; }
+
+.card.one .invite .parents-sign { font-family: "Bellefair", serif; font-size: 22px; line-height: 1.3; color: var(--navy); margin: 20px 0 0; }
 
 /* "אישור הגעה" as an ornamental divider */
-.card.one h2 { display: flex; align-items: center; gap: 14px; font-size: 24px; color: var(--navy);
-  margin: 20px 0 14px; }
-.card.one h2::before, .card.one h2::after { content: ""; flex: 1; height: 1px;
-  background: linear-gradient(to left, transparent, var(--gold-light)); }
+.card.one h2 { display: flex; align-items: center; gap: 16px; font-size: 24px; line-height: 1.2; color: var(--navy); margin: 24px 0 16px; }
+.card.one h2::before, .card.one h2::after { content: ""; flex: 1; height: 1px; background: linear-gradient(to left, transparent, var(--gold-light)); }
 .card.one h2::after { background: linear-gradient(to right, transparent, var(--gold-light)); }
-.card.one .thanks h2 { display: block; margin: 0 0 4px; }
+.card.one .thanks h2 { display: block; margin: 0 0 8px; }
 .card.one .thanks h2::before, .card.one .thanks h2::after { display: none; }
 
+/* form */
 .card.one .field { margin-bottom: 12px; }
-.card.one label, .card.one .label { font-size: 14px; margin-bottom: 5px; }
-.card.one input[type=text], .card.one input[type=tel] { padding: 11px 13px; }
-.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.card.one label, .card.one .label { font-size: 14px; line-height: 1.4; margin-bottom: 4px; }
+.card.one input[type=text], .card.one input[type=tel] { height: 44px; padding: 7px 7px; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .row2 .field { min-width: 0; }
-.card.one .choice label { padding: 11px 6px; }
-.count-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.card.one .choice { gap: 12px; }
+.card.one .choice label { height: 44px; display: flex; align-items: center; justify-content: center; padding: 0 8px; margin: 0; }
+.count-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .count-row .label { margin: 0; }
-.count-row small { font-weight: 400; color: var(--navy-soft); }
+.count-row small, .opt { font-weight: 400; color: var(--navy-soft); }
 .card.one .stepper button { width: 44px; height: 44px; }
-.card.one .stepper output { min-width: 42px; font-size: 19px; }
-.card.one .btn { padding: 14px 16px; margin-top: 2px; }
+.card.one .stepper output { min-width: 40px; font-size: 18px; }
+.card.one .btn { height: 52px; padding: 0 16px; margin-top: 4px; }
 .card.one .msg { margin: 8px 0 0; min-height: 0; }
 .card.one .msg:empty { display: none; }
 .card.one .demo { padding: 8px 12px; margin-bottom: 12px; font-size: 13px; }
-.card.one .thanks { padding: 18px 0 6px; }
+.card.one .thanks { padding: 16px 0 8px; }
 
-.card.one .verse { text-align: center; margin: 18px 0 0; font-size: 15px; }
-.parking { text-align: center; font-size: 13.5px; line-height: 1.6; color: var(--navy-soft);
-  margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--gold-pale); }
-.parking a { color: var(--navy); white-space: nowrap; text-decoration-color: var(--gold-light); text-underline-offset: 3px; }
-
-@media (max-width: 640px) { .card.one { padding: 26px 18px 18px; } }
-@media (min-width: 700px) { .wrap.one { padding-top: 40px; } }
-/* recover height after enlarging the date/venue block */
-.card.one { padding-top: 24px; }
-.card.one .invite h1 { font-size: clamp(46px, 13vw, 60px); }
-.card.one .invite .baby { margin: 2px 0 6px; }
-.card.one .invite .parents { margin-top: 4px; }
-.when-where { margin-top: 12px; padding: 11px 12px; }
-.ww + .ww { margin-top: 8px; padding-top: 8px; }
-.card.one h2 { margin: 14px 0 10px; }
-.card.one .field { margin-bottom: 10px; }
-.card.one input[type=text], .card.one input[type=tel] { padding: 10px 13px; }
-.card.one .choice label { padding: 10px 6px; }
-.card.one .stepper button { height: 42px; }
-.card.one .btn { padding: 13px 16px; }
-.card.one input[type=text], .card.one input[type=tel] { padding: 7px 7px; }
-/* parking: plain small text under the address, inside the venue block */
-.when-where .parking { font-size: 13.5px; font-weight: 400; line-height: 1.5; color: var(--navy-soft);
-  margin: 6px 0 0; padding: 0; border: 0; }
-.when-where .parking a { color: var(--navy-soft); font-weight: 400; text-decoration-color: var(--gold-light); }
-.opt { font-weight: 400; color: var(--navy-soft); }
-/* order: opening → invitation line → parents → title → baby name */
-.card.one .invite .body { margin-top: 6px; }
-.card.one .invite .parents { margin: 4px 0 6px; }
-.card.one .invite .baby { font-size: clamp(26px, 7.5vw, 32px); margin: 2px 0 0; line-height: 1.25; }
-/* navigation links with Waze icon */
-a.nav { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
-a.nav .waze { width: 18px; height: 18px; flex: none; color: #1fb6e8; }
-.when-where .parking a.nav .waze { width: 16px; height: 16px; }
-.card.one .invite .parents-sign { margin: 14px 0 0; }
+.card.one .verse { text-align: center; font-size: 15px; line-height: 1.5; margin: 24px 0 0; }
+.card.one .verse small { margin-top: 4px; }
