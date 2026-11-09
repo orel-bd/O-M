@@ -283,3 +283,4 @@ td.when { color: var(--navy-soft); font-size: 13px; white-space: nowrap; }
 .ww-main { font-family: "Assistant", system-ui, sans-serif; font-weight: 700; font-size: 18px; line-height: 1.4; }
 .ww-sub { font-size: 14px; font-weight: 400; }
 .ww + .ww { border-top: 0; margin-top: 6px; padding-top: 0; }
+.card.one input[type=text], .card.one input[type=tel] { padding: 7px 7px; }
