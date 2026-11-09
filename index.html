@@ -15,57 +15,46 @@
   <script src="config.js"></script>
 </head>
 <body>
-  <main class="wrap">
+  <main class="wrap one">
+    <section class="card one" aria-labelledby="title">
 
-    <!-- ההזמנה -->
-    <section class="card invite" aria-labelledby="title">
-      <p class="opening">בשבח והודיה לה׳ יתברך</p>
-      <h1 id="title">פדיון הבן</h1>
-      <p class="baby" data-baby></p>
-      <p class="body">
-        נתכבד להזמינכם להשתתף בשמחתנו
-        בסעודת מצווה של פדיון בננו בכורנו
-      </p>
-      <p class="parents" data-parents></p>
+      <!-- ההזמנה -->
+      <header class="invite">
+        <p class="opening">בשבח והודיה לה׳ יתברך</p>
+        <h1 id="title">פדיון הבן</h1>
+        <p class="baby" data-baby></p>
+        <p class="body">נתכבד להזמינכם לסעודת מצווה של פדיון בננו בכורנו</p>
+        <p class="parents" data-parents></p>
+        <div class="when-where">
+          <p><strong data-day></strong><span class="sep">·</span><span data-date></span><span class="sep">·</span><strong data-time></strong></p>
+          <p data-where></p>
+        </div>
+      </header>
 
-      <div class="divider" aria-hidden="true">✦</div>
+      <div class="rule" aria-hidden="true">✦</div>
 
-      <dl class="details">
-        <div><dt>מתי</dt><dd data-when></dd></div>
-        <div><dt>בשעה</dt><dd data-time></dd></div>
-        <div><dt>היכן</dt><dd data-where></dd></div>
-      </dl>
-
-      <p class="verse">
-        ״וּפְדוּיָו מִבֶּן חֹדֶשׁ תִּפְדֶּה... חֲמֵשֶׁת שְׁקָלִים״
-        <small>במדבר יח, טז</small>
-      </p>
-    </section>
-
-    <!-- הטופס -->
-    <section class="card" id="rsvp" aria-labelledby="rsvp-title">
+      <!-- הטופס -->
       <div id="form-view">
         <h2 id="rsvp-title">אישור הגעה</h2>
-        <p class="sub" data-deadline>נשמח לדעת אם תגיעו</p>
 
         <div class="demo hidden" id="demo-note">
           מצב הדגמה: האתר לא רץ על Vercel, לכן האישורים נשמרים רק בדפדפן הזה.
         </div>
 
-        <form id="form" novalidate>
-          <div class="field">
-            <label for="name">שם מלא</label>
-            <input id="name" name="name" type="text" autocomplete="name" required maxlength="80" placeholder="לדוגמה: משפחת לוי">
+        <form id="form" novalidate aria-labelledby="rsvp-title">
+          <div class="row2">
+            <div class="field">
+              <label for="name">שם מלא</label>
+              <input id="name" name="name" type="text" autocomplete="name" required maxlength="80" placeholder="משפחת לוי">
+            </div>
+            <div class="field">
+              <label for="phone">טלפון</label>
+              <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="050-0000000">
+            </div>
           </div>
 
           <div class="field">
-            <label for="phone">טלפון</label>
-            <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="050-0000000">
-          </div>
-
-          <div class="field">
-            <span class="label" id="att-label">האם תגיעו?</span>
-            <div class="choice" role="radiogroup" aria-labelledby="att-label">
+            <div class="choice" role="radiogroup" aria-label="האם תגיעו?">
               <input type="radio" id="att-yes" name="attending" value="yes" checked>
               <label for="att-yes">נגיע בשמחה</label>
               <input type="radio" id="att-no" name="attending" value="no">
@@ -73,9 +62,9 @@
             </div>
           </div>
 
-          <div class="field" id="count-field">
-            <span class="label" id="count-label">כמה תהיו? (כולל ילדים)</span>
-            <div class="stepper" aria-labelledby="count-label">
+          <div class="field count-row" id="count-field">
+            <span class="label" id="count-label">כמה תהיו? <small>(כולל ילדים)</small></span>
+            <div class="stepper" role="group" aria-labelledby="count-label">
               <button type="button" data-step="1" aria-label="הוספה">+</button>
               <output id="count" aria-live="polite">2</output>
               <button type="button" data-step="-1" aria-label="הפחתה">−</button>
@@ -83,8 +72,7 @@
           </div>
 
           <div class="field">
-            <label for="note">ברכה או הערה <span style="font-weight:400;color:var(--navy-soft)">(לא חובה)</span></label>
-            <textarea id="note" name="note" maxlength="500" placeholder="מזל טוב!"></textarea>
+            <input id="note" name="note" type="text" maxlength="500" placeholder="ברכה או הערה (לא חובה)" aria-label="ברכה או הערה (לא חובה)">
           </div>
 
           <button class="btn" type="submit" id="submit">שליחת אישור</button>
@@ -98,9 +86,12 @@
         <p id="thanks-text"></p>
         <button class="linkish" type="button" id="edit">לעדכן את האישור</button>
       </div>
-    </section>
 
-    <footer>בשמחות אצלכם · O&amp;M</footer>
+      <p class="verse">
+        ״וּפְדוּיָו מִבֶּן חֹדֶשׁ תִּפְדֶּה... חֲמֵשֶׁת שְׁקָלִים״
+        <small>במדבר יח, טז</small>
+      </p>
+    </section>
   </main>
 
   <script>
@@ -113,18 +104,19 @@
     // ---- מילוי פרטי האירוע ----
     $('[data-baby]').textContent = E.babyName ? 'של ' + E.babyName + ' נ״י' : '';
     $('[data-parents]').textContent = E.parents || '';
-    $('[data-when]').innerHTML = '';
-    $('[data-when]').append(E.hebrewDate || '', document.createElement('br'), E.date || '');
+    $('[data-day]').textContent = E.day || '';
+    $('[data-date]').textContent = [E.hebrewDate, E.date].filter(Boolean).join(' · ');
     $('[data-time]').textContent = E.time || '';
     const where = $('[data-where]');
-    where.append(E.venue || '', document.createElement('br'));
-    if (E.mapsUrl) {
-      const a = document.createElement('a');
-      a.href = E.mapsUrl; a.target = '_blank'; a.rel = 'noopener';
-      a.textContent = E.address || 'ניווט';
-      where.append(a);
-    } else where.append(E.address || '');
-    if (E.rsvpBy) $('[data-deadline]').textContent = 'נשמח לאישורכם עד ' + E.rsvpBy;
+    where.append(E.venue || '');
+    if (E.address) {
+      const sep = document.createElement('span');
+      sep.className = 'sep'; sep.textContent = '·';
+      const a = document.createElement(E.mapsUrl ? 'a' : 'span');
+      if (E.mapsUrl) { a.href = E.mapsUrl; a.target = '_blank'; a.rel = 'noopener'; }
+      a.textContent = E.address;
+      where.append(sep, a);
+    }
     if (E.babyName) document.title = 'פדיון הבן של ' + E.babyName + ' — אישור הגעה';
     if (!E.apiUrl) $('#demo-note').classList.remove('hidden');
 
