@@ -31,8 +31,6 @@
         </div>
       </header>
 
-      <div class="rule" aria-hidden="true">✦</div>
-
       <!-- הטופס -->
       <div id="form-view">
         <h2 id="rsvp-title">אישור הגעה</h2>
@@ -66,7 +64,7 @@
             <span class="label" id="count-label">כמה תהיו? <small>(כולל ילדים)</small></span>
             <div class="stepper" role="group" aria-labelledby="count-label">
               <button type="button" data-step="1" aria-label="הוספה">+</button>
-              <output id="count" aria-live="polite">2</output>
+              <output id="count" aria-live="polite">1</output>
               <button type="button" data-step="-1" aria-label="הפחתה">−</button>
             </div>
           </div>
@@ -91,6 +89,7 @@
         ״וּפְדוּיָו מִבֶּן חֹדֶשׁ תִּפְדֶּה... חֲמֵשֶׁת שְׁקָלִים״
         <small>במדבר יח, טז</small>
       </p>
+      <p class="parking" data-parking hidden></p>
     </section>
   </main>
 
@@ -117,11 +116,22 @@
       a.textContent = E.address;
       where.append(sep, a);
     }
+    if (E.parking) {
+      const pk = $('[data-parking]');
+      pk.append('🅿️ ', E.parking, document.createElement('br'), E.parkingPaid || '');
+      if (E.parkingAddress) {
+        const a = document.createElement(E.parkingUrl ? 'a' : 'span');
+        if (E.parkingUrl) { a.href = E.parkingUrl; a.target = '_blank'; a.rel = 'noopener'; }
+        a.textContent = E.parkingAddress;
+        pk.append(a);
+      }
+      pk.hidden = false;
+    }
     if (E.babyName) document.title = 'פדיון הבן של ' + E.babyName + ' — אישור הגעה';
     if (!E.apiUrl) $('#demo-note').classList.remove('hidden');
 
     // ---- כמות ----
-    let count = 2;
+    let count = 1;
     const out = $('#count');
     document.querySelectorAll('[data-step]').forEach((b) =>
       b.addEventListener('click', () => {
@@ -203,7 +213,7 @@
       if (mine) {
         $('#name').value = mine.name; $('#phone').value = mine.phone; $('#note').value = mine.note || '';
         $(mine.attending === 'no' ? '#att-no' : '#att-yes').checked = true;
-        count = mine.count || 2; out.textContent = count;
+        count = mine.count || 1; out.textContent = count;
         syncAttending();
         showThanks(mine);
       }

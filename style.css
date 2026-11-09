@@ -210,48 +210,54 @@ td.when { color: var(--navy-soft); font-size: 13px; white-space: nowrap; }
   th.hide-sm, td.hide-sm { display: none; }
 }
 
-/* ---------- one-screen layout: invitation + form fit without scrolling ---------- */
-.wrap.one { max-width: 520px; padding: 12px 12px 16px; }
-.card.one { padding: 20px 18px 16px; }
-.card.one::before { inset: 6px; }
+/* ---------- one-screen invitation: airy but the form starts right away ---------- */
+.wrap.one { max-width: 540px; padding: 14px 12px 20px; }
+.card.one { padding: 30px 24px 20px; }
+.card.one::before { inset: 8px; }
+
 .card.one .invite { text-align: center; }
-.invite .opening { font-size: 13px; margin: 0; }
-.card.one .invite h1 { font-size: clamp(40px, 11vw, 54px); margin: 0; line-height: 1.1; }
-.card.one .invite .baby { font-size: 20px; margin: 0 0 4px; }
-.card.one .invite .body { font-size: 15px; line-height: 1.45; margin: 0 auto; }
-.card.one .invite .parents { font-size: 19px; margin: 2px 0 0; }
-.when-where { margin-top: 8px; font-size: 15px; line-height: 1.55; color: var(--navy); }
+.card.one .invite .opening { font-size: 14px; letter-spacing: .02em; margin: 0 0 2px; }
+.card.one .invite h1 { font-size: clamp(48px, 13.5vw, 64px); margin: 0; line-height: 1.05; }
+.card.one .invite .baby { font-size: 22px; margin: 6px 0 10px; }
+.card.one .invite .body { font-size: 16px; line-height: 1.5; margin: 0 auto; max-width: 360px; }
+.card.one .invite .parents { font-size: 21px; margin: 6px 0 0; }
+
+.when-where { margin: 14px auto 0; padding: 10px 0; max-width: 400px; font-size: 15px; line-height: 1.6;
+  border-top: 1px solid var(--gold-pale); border-bottom: 1px solid var(--gold-pale); }
 .when-where p { margin: 0; }
-.when-where .sep { color: var(--gold); margin: 0 6px; }
+.when-where .sep { color: var(--gold); margin: 0 7px; }
 .when-where a { color: var(--navy); text-decoration-color: var(--gold-light); text-underline-offset: 3px; }
-.rule { display: flex; align-items: center; gap: 10px; color: var(--gold); font-size: 11px; margin: 12px auto 10px; max-width: 280px; }
-.rule::before, .rule::after { content: ""; flex: 1; height: 1px; background: var(--gold-light); }
-.card.one h2 { font-size: 22px; margin: 0 0 10px; }
-.card.one .field { margin-bottom: 10px; }
-.card.one label, .card.one .label { font-size: 14px; margin-bottom: 3px; }
-.card.one input[type=text], .card.one input[type=tel] { padding: 9px 12px; }
-.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+/* "אישור הגעה" as an ornamental divider */
+.card.one h2 { display: flex; align-items: center; gap: 14px; font-size: 24px; color: var(--navy);
+  margin: 20px 0 14px; }
+.card.one h2::before, .card.one h2::after { content: ""; flex: 1; height: 1px;
+  background: linear-gradient(to left, transparent, var(--gold-light)); }
+.card.one h2::after { background: linear-gradient(to right, transparent, var(--gold-light)); }
+.card.one .thanks h2 { display: block; margin: 0 0 4px; }
+.card.one .thanks h2::before, .card.one .thanks h2::after { display: none; }
+
+.card.one .field { margin-bottom: 12px; }
+.card.one label, .card.one .label { font-size: 14px; margin-bottom: 5px; }
+.card.one input[type=text], .card.one input[type=tel] { padding: 11px 13px; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .row2 .field { min-width: 0; }
-.card.one .choice label { padding: 9px 6px; }
+.card.one .choice label { padding: 11px 6px; }
 .count-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .count-row .label { margin: 0; }
 .count-row small { font-weight: 400; color: var(--navy-soft); }
-.card.one .stepper button { width: 42px; height: 40px; }
-.card.one .stepper output { min-width: 40px; font-size: 18px; }
-.card.one .btn { padding: 12px 16px; }
-.card.one .msg { margin: 6px 0 0; min-height: 0; }
+.card.one .stepper button { width: 44px; height: 44px; }
+.card.one .stepper output { min-width: 42px; font-size: 19px; }
+.card.one .btn { padding: 14px 16px; margin-top: 2px; }
+.card.one .msg { margin: 8px 0 0; min-height: 0; }
 .card.one .msg:empty { display: none; }
-.card.one .thanks { padding: 4px 0; }
-.card.one .verse { text-align: center; margin: 12px 0 0; font-size: 14px; }
-@media (max-width: 640px) { .card.one { padding: 18px 14px 14px; } }
-/* tighter vertical rhythm so the send button is visible on a phone without scrolling */
-.wrap.one { padding: 8px 10px 12px; }
-.card.one { padding-top: 16px; padding-bottom: 14px; }
-.card.one .invite h1 { font-size: clamp(38px, 10.5vw, 50px); }
-.card.one .invite .baby { font-size: 19px; }
-.when-where { margin-top: 6px; }
-.rule { margin: 8px auto 6px; }
-.card.one h2 { font-size: 20px; margin: 0 0 8px; }
-.card.one .field { margin-bottom: 8px; }
-.card.one .demo { padding: 6px 10px; margin-bottom: 8px; font-size: 13px; }
-.card.one .verse { margin-top: 10px; }
+.card.one .demo { padding: 8px 12px; margin-bottom: 12px; font-size: 13px; }
+.card.one .thanks { padding: 18px 0 6px; }
+
+.card.one .verse { text-align: center; margin: 18px 0 0; font-size: 15px; }
+.parking { text-align: center; font-size: 13.5px; line-height: 1.6; color: var(--navy-soft);
+  margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--gold-pale); }
+.parking a { color: var(--navy); white-space: nowrap; text-decoration-color: var(--gold-light); text-underline-offset: 3px; }
+
+@media (max-width: 640px) { .card.one { padding: 26px 18px 18px; } }
+@media (min-width: 700px) { .wrap.one { padding-top: 40px; } }
