@@ -272,3 +272,8 @@ a.nav .waze { width: 18px; height: 18px; flex: none; color: var(--gold); }
 
 .card.one .verse { text-align: center; font-size: 15px; line-height: 1.5; margin: 24px 0 0; }
 .card.one .verse small { margin-top: 4px; }
+/* "[waze] לניווט" link next to an address */
+a.nav { margin-right: 10px; font-size: 14px; font-weight: 700; color: var(--gold) !important; text-decoration: none; }
+a.nav:hover { text-decoration: underline; }
+.when-where .parking a.nav { font-size: 13px; }
+a.nav { vertical-align: middle; line-height: 1; }
